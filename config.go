@@ -39,6 +39,7 @@ type CollectorConfig struct {
 	IgnoredUIDs    []string                                `yaml:"ignored_uids"`
 	Labels         map[string]string                       `yaml:"labels"`
 	SensorLabels   map[string]map[string]map[string]string `yaml:"sensor_labels"`
+	LEDStatus      string                                  `yaml:"led_status"`
 	Expire         time.Duration                           `yaml:"expire_period"`
 }
 
@@ -76,6 +77,7 @@ func defaultConfig() (*LocalConfig, error) {
 			LogLevel:       "info",
 			CallbackPeriod: 10 * time.Second,
 			Expire:         0,
+			LEDStatus:      "on",
 		},
 		MQTT: &mqtt.MQTT{
 			Enabled: false,
@@ -83,6 +85,7 @@ func defaultConfig() (*LocalConfig, error) {
 			HomeAssistant: mqtt.HomeAssistant{
 				Enabled:       false,
 				DiscoveryBase: "homeassistant/",
+				Interval:      5 * time.Minute,
 			},
 		},
 	}, nil
